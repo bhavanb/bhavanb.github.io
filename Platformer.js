@@ -69,7 +69,7 @@ function pushTiles(){
 				tiles.push({x: j*16, y: i*16, w: player.w, h: player.h, type: "wall"});
 			}
 			if(boxes[i][j] == 2){
-				tiles.push({x: j*16, y: i*16, w: player.w, h: player.h, type: "danger"});
+				tiles.push({x: j*16, y: (i*16)+2, w: player.w, h: player.h-2, type: "danger"});
 			}
 			if(boxes[i][j] == 3){
 				tiles.push({x: j*16, y: i*16, w: player.w, h: player.h, type: "checkPoint"});
@@ -238,37 +238,35 @@ function drawPlayer(){
 }
 
 function drawtiles(){
-	for(var i = 0;i<32;i++){
-		for(var j = 0;j<32;j++){
-			if(boxes[i][j] == 1){
-				ctx.beginPath();
-				ctx.rect(j*16, i*16, player.w, player.h);
-				ctx.fillStyle = "#000";
-				ctx.fill();
-				ctx.closePath;
-			}
-			if(boxes[i][j] == 2){
-				ctx.beginPath();
-				ctx.rect(j*16, i*16, player.w, player.h);
-				ctx.fillStyle = "#f00";
-				ctx.fill();
-				ctx.closePath;
-			}
-			if(boxes[i][j] == 3){
-				ctx.beginPath();
-				ctx.rect(j*16, i*16, player.w, player.h);
-				ctx.fillStyle = "#0f0";
-				ctx.fill();
-				ctx.closePath;
-			}
-			if(boxes[i][j] == 4){
-				ctx.beginPath();
-				ctx.rect(j*16, i*16, player.w, player.h);
-				ctx.fillStyle = "#444";
-				ctx.fill();
-				ctx.closePath;
-			}
-
+	
+	for(var i = 0;i<tiles.length;i++){
+		if(tiles[i].type == "wall"){
+			ctx.beginPath();
+			ctx.rect(tiles[i].x, tiles[i].y, tiles[i].w, tiles[i].h);
+			ctx.fillStyle = "#000";
+			ctx.fill();
+			ctx.closePath;
+		}
+		if(tiles[i].type == "danger"){
+			ctx.beginPath();
+			ctx.rect(tiles[i].x, tiles[i].y, tiles[i].w, tiles[i].h);
+			ctx.fillStyle = "#f00";
+			ctx.fill();
+			ctx.closePath;
+		}
+		if(tiles[i].type == "checkPoint"){
+			ctx.beginPath();
+			ctx.rect(tiles[i].x, tiles[i].y, tiles[i].w, tiles[i].h);
+			ctx.fillStyle = "#0f0";
+			ctx.fill();
+			ctx.closePath;
+		}
+		if(tiles[i].type == "disappear"){
+			ctx.beginPath();
+			ctx.rect(tiles[i].x, tiles[i].y, tiles[i].w, tiles[i].h);
+			ctx.fillStyle = "#888";
+			ctx.fill();
+			ctx.closePath;
 		}
 	}
 }
