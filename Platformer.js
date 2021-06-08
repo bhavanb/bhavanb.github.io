@@ -20,7 +20,8 @@ const player = {
 	jh:8,
 	cx: 0,
 	cy: 0,
-	timer: 48
+	timer: 16,
+	mt: 16
 	};
 
 var tiles = [];
@@ -149,23 +150,23 @@ function placeFree(newx, newy){
 	if((newx == player.x)&&(newy == player.y)){return true;}
 	var temp = { x: newx, y: newy, w: player.w, h: player.h};
 	for(var i = 0;i<tiles.length;i++){
-		
+
 		if(collision(temp, tiles[i])){
-			
+
 			if((tiles[i].type == "wall")){
-			player.timer = 48;
+			player.timer = player.mt;
 			return false;
 
 			}
 			if((tiles[i].type == "danger")){
 				checkPoint();
-				player.timer = 48;
+				player.timer = player.mt;
 				return true;
 			}
 			if((tiles[i].type == "checkPoint")){
 				player.cx = tiles[i].x;
 				player.cy = tiles[i].y-16;
-				player.timer = 48;
+				player.timer = player.mt;
 			}
 			if((tiles[i].type == "disappear")){
 
@@ -176,11 +177,10 @@ function placeFree(newx, newy){
 				return true;
 			}
 		}
-		
+
 	}
-	
-	player.timer = 48;
-	//console.log(newx, " ", newy);
+
+	player.timer = player.mt;
 	return true;
 }
 
@@ -238,7 +238,7 @@ function drawPlayer(){
 }
 
 function drawtiles(){
-	
+
 	for(var i = 0;i<tiles.length;i++){
 		if(tiles[i].type == "wall"){
 			ctx.beginPath();
